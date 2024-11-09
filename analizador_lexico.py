@@ -2,7 +2,7 @@ import ply.lex as lex
 import datetime
 import os
 
-
+# Fulco Pincay
 tokens = (
     'ID', 'INSTANCE_VAR', 'CLASS_VAR', 'GLOBAL_VAR',  # Identificadores y variables
     'NUMBER', 'STRING',                               # Números y strings
@@ -33,7 +33,7 @@ reserved = {
 
 tokens += tuple(reserved.values())
 
-
+# Fulco Pincay
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
@@ -62,7 +62,7 @@ t_RBRACKET = r'\]'
 
 t_AND = r'&&'
 t_AMPERSAND = r'&'
-
+# Fulco Pincay
 def t_INSTANCE_VAR(t):
     r'@[a-zA-Z_][a-zA-Z_0-9]*'
     return t
@@ -78,7 +78,7 @@ def t_GLOBAL_VAR(t):
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'ID')  # Check reserved words
+    t.type = reserved.get(t.value, 'ID')  
     return t
 
 
