@@ -12,7 +12,10 @@ tokens = (
     'ASSIGN', 'PLUS_ASSIGN', 'MINUS_ASSIGN',          # Asignación
     'LPAREN', 'RPAREN', 'LBRACE', 'RBRACE',           # Delimitadores
     'COMMA', 'DOT', 'COLON', 'SEMICOLON',             # Otros
-    'LBRACKET', 'RBRACKET', 'AMPERSAND'               
+    'LBRACKET', 'RBRACKET', 'AMPERSAND',
+    'MOD', 'EXP',                                     #Operadores de modulo y exponenciacion
+    't_TIMES_ASSIGN','t_DIVIDE_ASSIGN','t_MOD_ASSIGN'  #Mas operadores de asignacion
+    't_FLECHA'                                   
 )
 
 
@@ -27,7 +30,8 @@ reserved = {
     'module': 'MODULE',
     'true': 'TRUE',
     'false': 'FALSE',
-    'nil': 'NIL'
+    'nil': 'NIL',
+    'next': 'NEXT'
 }
 
 
@@ -47,6 +51,10 @@ t_LTE = r'<='
 t_ASSIGN = r'='
 t_PLUS_ASSIGN = r'\+='
 t_MINUS_ASSIGN = r'-='
+#Adrian Salamea \
+t_TIMES_ASSIGN = r'\*='
+t_DIVIDE_ASSIGN = r'/='
+t_MOD_ASSIGN = r'%='
 
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -62,6 +70,12 @@ t_RBRACKET = r'\]'
 
 t_AND = r'&&'
 t_AMPERSAND = r'&'
+
+#Adrian Salamea 
+t_MOD = r'%'
+t_EXP = r'\*\*'
+t_FLECHA = r'=>'
+
 # Fulco Pincay
 def t_INSTANCE_VAR(t):
     r'@[a-zA-Z_][a-zA-Z_0-9]*'
@@ -104,7 +118,10 @@ def t_error(t):
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-
+#Adrian Salamea 
+def t_COMMENT(t):
+    r'\#.*'
+    pass
 
 lexer = lex.lex()
 
