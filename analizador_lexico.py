@@ -14,8 +14,8 @@ tokens = (
     'COMMA', 'DOT', 'COLON', 'SEMICOLON',             # Otros
     'LBRACKET', 'RBRACKET', 'AMPERSAND',
     'MOD', 'EXP',                                     #Operadores de modulo y exponenciacion
-    't_TIMES_ASSIGN','t_DIVIDE_ASSIGN','t_MOD_ASSIGN'  #Mas operadores de asignacion
-    't_FLECHA'                                   
+     'TIMES_ASSIGN', 'DIVIDE_ASSIGN', 'MOD_ASSIGN',    # Más operadores de asignación
+    'FLECHA'                                
 )
 
 
@@ -53,8 +53,8 @@ t_PLUS_ASSIGN = r'\+='
 t_MINUS_ASSIGN = r'-='
 #Adrian Salamea \
 t_TIMES_ASSIGN = r'\*='
-t_DIVIDE_ASSIGN = r'/='
-t_MOD_ASSIGN = r'%='
+t_DIVIDE_ASSIGN = r'\='
+t_MOD_ASSIGN = r'\%='
 
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -145,11 +145,11 @@ if __name__ == "__main__":
     print("Directorio actual:", os.getcwd())
 
    
-    print("Archivos en el directorio especificado:", os.listdir("C:/Users/fupifigu/Videos/test_unesum/lp/lp_avanze"))
+    print("Archivos en el directorio especificado:", os.listdir("C:/Users/DETPC/OneDrive - Escuela Superior Politécnica del Litoral/LP/Proyectos/lexer"))
 
     try:
-        with open("C:/Users/fupifigu/Videos/test_unesum/lp/lp_avanze/algoritmo1.rb", "r") as f:
+        with open("C:/Users/DETPC/OneDrive - Escuela Superior Politécnica del Litoral/LP/Proyectos/lexer/algoritmo2.rb", "r") as f:
             data = f.read()
-            generate_log(data, "fulcopin")  
+            generate_log(data, "Adrianlsq2000")  
     except FileNotFoundError:
-        print("Error: archivo de prueba 'algoritmo1.rb' no encontrado. Verifica la ruta.")
+        print("Error: archivo de prueba 'algoritmo2.rb' no encontrado. Verifica la ruta.")
