@@ -15,4 +15,9 @@ end
 
 saludo("Estudiante")
 
+begin
+  range = 1..5
+end
+
+
 

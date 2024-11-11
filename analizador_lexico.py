@@ -15,7 +15,7 @@ tokens = (
     'LBRACKET', 'RBRACKET', 'AMPERSAND',
     'MOD', 'EXP',                                     #Operadores de modulo y exponenciacion
      'TIMES_ASSIGN', 'DIVIDE_ASSIGN', 'MOD_ASSIGN',    # Más operadores de asignación
-    'FLECHA', 't_RANGE'                                
+    'FLECHA', 'RANGE',                            
 )
 
 
@@ -156,7 +156,7 @@ if __name__ == "__main__":
     try:
         with open("C:/Users/DETPC/OneDrive - Escuela Superior Politécnica del Litoral/LP/Proyectos/lexer/algoritmo2.rb", "r") as f:
             data = f.read()
-            generate_log(data, "Adrianlsq2000")  
+            generate_log(data, "pbarahon")  
     except FileNotFoundError:
         print("Error: archivo de prueba 'algoritmo2.rb' no encontrado. Verifica la ruta.")
         
