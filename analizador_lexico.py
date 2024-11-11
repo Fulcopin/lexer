@@ -15,7 +15,7 @@ tokens = (
     'LBRACKET', 'RBRACKET', 'AMPERSAND',
     'MOD', 'EXP',                                     #Operadores de modulo y exponenciacion
      'TIMES_ASSIGN', 'DIVIDE_ASSIGN', 'MOD_ASSIGN',    # Más operadores de asignación
-    'FLECHA'                                
+    'FLECHA', 't_RANGE'                                
 )
 
 
@@ -31,7 +31,10 @@ reserved = {
     'true': 'TRUE',
     'false': 'FALSE',
     'nil': 'NIL',
-    'next': 'NEXT'
+    'next': 'NEXT',
+    'begin': 'BEGIN',
+    'end': 'END'
+
 }
 
 
@@ -55,6 +58,9 @@ t_MINUS_ASSIGN = r'-='
 t_TIMES_ASSIGN = r'\*='
 t_DIVIDE_ASSIGN = r'\='
 t_MOD_ASSIGN = r'\%='
+
+#Pedro Barahona
+t_RANGE = r'\.\.'
 
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -153,3 +159,4 @@ if __name__ == "__main__":
             generate_log(data, "Adrianlsq2000")  
     except FileNotFoundError:
         print("Error: archivo de prueba 'algoritmo2.rb' no encontrado. Verifica la ruta.")
+        
