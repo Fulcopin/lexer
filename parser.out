@@ -1,0 +1,715 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    CLASS
+    CLASS_VAR
+    COLON
+    DEF
+    DIVIDE
+    DO
+    DOT
+    ELSE
+    EQ
+    FALSE
+    GLOBAL_VAR
+    GT
+    GTE
+    INSTANCE_VAR
+    LBRACE
+    LBRACKET
+    LT
+    LTE
+    MINUS_ASSIGN
+    MODULE
+    NEQ
+    NIL
+    NOT
+    OR
+    PLUS_ASSIGN
+    RBRACE
+    RBRACKET
+    SEMICOLON
+    TIMES
+    TRUE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statement_list
+Rule 2     statement_list -> statement_list statement
+Rule 3     statement_list -> statement
+Rule 4     statement -> variable_declaration
+Rule 5     statement -> print_statement
+Rule 6     statement -> control_structure
+Rule 7     variable_declaration -> ID ASSIGN expression
+Rule 8     print_statement -> PUTS LPAREN argument_list RPAREN
+Rule 9     print_statement -> PUTS STRING
+Rule 10    argument_list -> argument_list COMMA expression
+Rule 11    argument_list -> expression
+Rule 12    control_structure -> if_statement
+Rule 13    control_structure -> while_statement
+Rule 14    if_statement -> IF expression statement_list END
+Rule 15    while_statement -> WHILE expression statement_list END
+Rule 16    expression -> expression PLUS expression
+Rule 17    expression -> expression MINUS expression
+Rule 18    expression -> NUMBER
+Rule 19    expression -> STRING
+Rule 20    expression -> ID
+
+Terminals, with rules where they appear
+
+AND                  : 
+ASSIGN               : 7
+CLASS                : 
+CLASS_VAR            : 
+COLON                : 
+COMMA                : 10
+DEF                  : 
+DIVIDE               : 
+DO                   : 
+DOT                  : 
+ELSE                 : 
+END                  : 14 15
+EQ                   : 
+FALSE                : 
+GLOBAL_VAR           : 
+GT                   : 
+GTE                  : 
+ID                   : 7 20
+IF                   : 14
+INSTANCE_VAR         : 
+LBRACE               : 
+LBRACKET             : 
+LPAREN               : 8
+LT                   : 
+LTE                  : 
+MINUS                : 17
+MINUS_ASSIGN         : 
+MODULE               : 
+NEQ                  : 
+NIL                  : 
+NOT                  : 
+NUMBER               : 18
+OR                   : 
+PLUS                 : 16
+PLUS_ASSIGN          : 
+PUTS                 : 8 9
+RBRACE               : 
+RBRACKET             : 
+RPAREN               : 8
+SEMICOLON            : 
+STRING               : 9 19
+TIMES                : 
+TRUE                 : 
+WHILE                : 15
+error                : 
+
+Nonterminals, with rules where they appear
+
+argument_list        : 8 10
+control_structure    : 6
+expression           : 7 10 11 14 15 16 16 17 17
+if_statement         : 12
+print_statement      : 5
+program              : 0
+statement            : 2 3
+statement_list       : 1 2 14 15
+variable_declaration : 4
+while_statement      : 13
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statement_list
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) variable_declaration -> . ID ASSIGN expression
+    (8) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (9) print_statement -> . PUTS STRING
+    (12) control_structure -> . if_statement
+    (13) control_structure -> . while_statement
+    (14) if_statement -> . IF expression statement_list END
+    (15) while_statement -> . WHILE expression statement_list END
+
+    ID              shift and go to state 7
+    PUTS            shift and go to state 8
+    IF              shift and go to state 11
+    WHILE           shift and go to state 12
+
+    program                        shift and go to state 1
+    statement_list                 shift and go to state 2
+    statement                      shift and go to state 3
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) variable_declaration -> . ID ASSIGN expression
+    (8) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (9) print_statement -> . PUTS STRING
+    (12) control_structure -> . if_statement
+    (13) control_structure -> . while_statement
+    (14) if_statement -> . IF expression statement_list END
+    (15) while_statement -> . WHILE expression statement_list END
+
+    $end            reduce using rule 1 (program -> statement_list .)
+    ID              shift and go to state 7
+    PUTS            shift and go to state 8
+    IF              shift and go to state 11
+    WHILE           shift and go to state 12
+
+    statement                      shift and go to state 13
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+
+state 3
+
+    (3) statement_list -> statement .
+
+    ID              reduce using rule 3 (statement_list -> statement .)
+    PUTS            reduce using rule 3 (statement_list -> statement .)
+    IF              reduce using rule 3 (statement_list -> statement .)
+    WHILE           reduce using rule 3 (statement_list -> statement .)
+    $end            reduce using rule 3 (statement_list -> statement .)
+    END             reduce using rule 3 (statement_list -> statement .)
+
+
+state 4
+
+    (4) statement -> variable_declaration .
+
+    ID              reduce using rule 4 (statement -> variable_declaration .)
+    PUTS            reduce using rule 4 (statement -> variable_declaration .)
+    IF              reduce using rule 4 (statement -> variable_declaration .)
+    WHILE           reduce using rule 4 (statement -> variable_declaration .)
+    $end            reduce using rule 4 (statement -> variable_declaration .)
+    END             reduce using rule 4 (statement -> variable_declaration .)
+
+
+state 5
+
+    (5) statement -> print_statement .
+
+    ID              reduce using rule 5 (statement -> print_statement .)
+    PUTS            reduce using rule 5 (statement -> print_statement .)
+    IF              reduce using rule 5 (statement -> print_statement .)
+    WHILE           reduce using rule 5 (statement -> print_statement .)
+    $end            reduce using rule 5 (statement -> print_statement .)
+    END             reduce using rule 5 (statement -> print_statement .)
+
+
+state 6
+
+    (6) statement -> control_structure .
+
+    ID              reduce using rule 6 (statement -> control_structure .)
+    PUTS            reduce using rule 6 (statement -> control_structure .)
+    IF              reduce using rule 6 (statement -> control_structure .)
+    WHILE           reduce using rule 6 (statement -> control_structure .)
+    $end            reduce using rule 6 (statement -> control_structure .)
+    END             reduce using rule 6 (statement -> control_structure .)
+
+
+state 7
+
+    (7) variable_declaration -> ID . ASSIGN expression
+
+    ASSIGN          shift and go to state 14
+
+
+state 8
+
+    (8) print_statement -> PUTS . LPAREN argument_list RPAREN
+    (9) print_statement -> PUTS . STRING
+
+    LPAREN          shift and go to state 15
+    STRING          shift and go to state 16
+
+
+state 9
+
+    (12) control_structure -> if_statement .
+
+    ID              reduce using rule 12 (control_structure -> if_statement .)
+    PUTS            reduce using rule 12 (control_structure -> if_statement .)
+    IF              reduce using rule 12 (control_structure -> if_statement .)
+    WHILE           reduce using rule 12 (control_structure -> if_statement .)
+    $end            reduce using rule 12 (control_structure -> if_statement .)
+    END             reduce using rule 12 (control_structure -> if_statement .)
+
+
+state 10
+
+    (13) control_structure -> while_statement .
+
+    ID              reduce using rule 13 (control_structure -> while_statement .)
+    PUTS            reduce using rule 13 (control_structure -> while_statement .)
+    IF              reduce using rule 13 (control_structure -> while_statement .)
+    WHILE           reduce using rule 13 (control_structure -> while_statement .)
+    $end            reduce using rule 13 (control_structure -> while_statement .)
+    END             reduce using rule 13 (control_structure -> while_statement .)
+
+
+state 11
+
+    (14) if_statement -> IF . expression statement_list END
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . NUMBER
+    (19) expression -> . STRING
+    (20) expression -> . ID
+
+    NUMBER          shift and go to state 18
+    STRING          shift and go to state 19
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 17
+
+state 12
+
+    (15) while_statement -> WHILE . expression statement_list END
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . NUMBER
+    (19) expression -> . STRING
+    (20) expression -> . ID
+
+    NUMBER          shift and go to state 18
+    STRING          shift and go to state 19
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 21
+
+state 13
+
+    (2) statement_list -> statement_list statement .
+
+    ID              reduce using rule 2 (statement_list -> statement_list statement .)
+    PUTS            reduce using rule 2 (statement_list -> statement_list statement .)
+    IF              reduce using rule 2 (statement_list -> statement_list statement .)
+    WHILE           reduce using rule 2 (statement_list -> statement_list statement .)
+    $end            reduce using rule 2 (statement_list -> statement_list statement .)
+    END             reduce using rule 2 (statement_list -> statement_list statement .)
+
+
+state 14
+
+    (7) variable_declaration -> ID ASSIGN . expression
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . NUMBER
+    (19) expression -> . STRING
+    (20) expression -> . ID
+
+    NUMBER          shift and go to state 18
+    STRING          shift and go to state 19
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 22
+
+state 15
+
+    (8) print_statement -> PUTS LPAREN . argument_list RPAREN
+    (10) argument_list -> . argument_list COMMA expression
+    (11) argument_list -> . expression
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . NUMBER
+    (19) expression -> . STRING
+    (20) expression -> . ID
+
+    NUMBER          shift and go to state 18
+    STRING          shift and go to state 19
+    ID              shift and go to state 20
+
+    argument_list                  shift and go to state 23
+    expression                     shift and go to state 24
+
+state 16
+
+    (9) print_statement -> PUTS STRING .
+
+    ID              reduce using rule 9 (print_statement -> PUTS STRING .)
+    PUTS            reduce using rule 9 (print_statement -> PUTS STRING .)
+    IF              reduce using rule 9 (print_statement -> PUTS STRING .)
+    WHILE           reduce using rule 9 (print_statement -> PUTS STRING .)
+    $end            reduce using rule 9 (print_statement -> PUTS STRING .)
+    END             reduce using rule 9 (print_statement -> PUTS STRING .)
+
+
+state 17
+
+    (14) if_statement -> IF expression . statement_list END
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MINUS expression
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) variable_declaration -> . ID ASSIGN expression
+    (8) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (9) print_statement -> . PUTS STRING
+    (12) control_structure -> . if_statement
+    (13) control_structure -> . while_statement
+    (14) if_statement -> . IF expression statement_list END
+    (15) while_statement -> . WHILE expression statement_list END
+
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    ID              shift and go to state 7
+    PUTS            shift and go to state 8
+    IF              shift and go to state 11
+    WHILE           shift and go to state 12
+
+    statement_list                 shift and go to state 25
+    statement                      shift and go to state 3
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+
+state 18
+
+    (18) expression -> NUMBER .
+
+    PLUS            reduce using rule 18 (expression -> NUMBER .)
+    MINUS           reduce using rule 18 (expression -> NUMBER .)
+    ID              reduce using rule 18 (expression -> NUMBER .)
+    PUTS            reduce using rule 18 (expression -> NUMBER .)
+    IF              reduce using rule 18 (expression -> NUMBER .)
+    WHILE           reduce using rule 18 (expression -> NUMBER .)
+    $end            reduce using rule 18 (expression -> NUMBER .)
+    END             reduce using rule 18 (expression -> NUMBER .)
+    RPAREN          reduce using rule 18 (expression -> NUMBER .)
+    COMMA           reduce using rule 18 (expression -> NUMBER .)
+
+
+state 19
+
+    (19) expression -> STRING .
+
+    PLUS            reduce using rule 19 (expression -> STRING .)
+    MINUS           reduce using rule 19 (expression -> STRING .)
+    ID              reduce using rule 19 (expression -> STRING .)
+    PUTS            reduce using rule 19 (expression -> STRING .)
+    IF              reduce using rule 19 (expression -> STRING .)
+    WHILE           reduce using rule 19 (expression -> STRING .)
+    $end            reduce using rule 19 (expression -> STRING .)
+    END             reduce using rule 19 (expression -> STRING .)
+    RPAREN          reduce using rule 19 (expression -> STRING .)
+    COMMA           reduce using rule 19 (expression -> STRING .)
+
+
+state 20
+
+    (20) expression -> ID .
+
+    PLUS            reduce using rule 20 (expression -> ID .)
+    MINUS           reduce using rule 20 (expression -> ID .)
+    ID              reduce using rule 20 (expression -> ID .)
+    PUTS            reduce using rule 20 (expression -> ID .)
+    IF              reduce using rule 20 (expression -> ID .)
+    WHILE           reduce using rule 20 (expression -> ID .)
+    $end            reduce using rule 20 (expression -> ID .)
+    END             reduce using rule 20 (expression -> ID .)
+    RPAREN          reduce using rule 20 (expression -> ID .)
+    COMMA           reduce using rule 20 (expression -> ID .)
+
+
+state 21
+
+    (15) while_statement -> WHILE expression . statement_list END
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MINUS expression
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) variable_declaration -> . ID ASSIGN expression
+    (8) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (9) print_statement -> . PUTS STRING
+    (12) control_structure -> . if_statement
+    (13) control_structure -> . while_statement
+    (14) if_statement -> . IF expression statement_list END
+    (15) while_statement -> . WHILE expression statement_list END
+
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    ID              shift and go to state 7
+    PUTS            shift and go to state 8
+    IF              shift and go to state 11
+    WHILE           shift and go to state 12
+
+    statement_list                 shift and go to state 28
+    statement                      shift and go to state 3
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+
+state 22
+
+    (7) variable_declaration -> ID ASSIGN expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MINUS expression
+
+    ID              reduce using rule 7 (variable_declaration -> ID ASSIGN expression .)
+    PUTS            reduce using rule 7 (variable_declaration -> ID ASSIGN expression .)
+    IF              reduce using rule 7 (variable_declaration -> ID ASSIGN expression .)
+    WHILE           reduce using rule 7 (variable_declaration -> ID ASSIGN expression .)
+    $end            reduce using rule 7 (variable_declaration -> ID ASSIGN expression .)
+    END             reduce using rule 7 (variable_declaration -> ID ASSIGN expression .)
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+
+
+state 23
+
+    (8) print_statement -> PUTS LPAREN argument_list . RPAREN
+    (10) argument_list -> argument_list . COMMA expression
+
+    RPAREN          shift and go to state 29
+    COMMA           shift and go to state 30
+
+
+state 24
+
+    (11) argument_list -> expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MINUS expression
+
+    RPAREN          reduce using rule 11 (argument_list -> expression .)
+    COMMA           reduce using rule 11 (argument_list -> expression .)
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+
+
+state 25
+
+    (14) if_statement -> IF expression statement_list . END
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) variable_declaration -> . ID ASSIGN expression
+    (8) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (9) print_statement -> . PUTS STRING
+    (12) control_structure -> . if_statement
+    (13) control_structure -> . while_statement
+    (14) if_statement -> . IF expression statement_list END
+    (15) while_statement -> . WHILE expression statement_list END
+
+    END             shift and go to state 31
+    ID              shift and go to state 7
+    PUTS            shift and go to state 8
+    IF              shift and go to state 11
+    WHILE           shift and go to state 12
+
+    statement                      shift and go to state 13
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+
+state 26
+
+    (16) expression -> expression PLUS . expression
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . NUMBER
+    (19) expression -> . STRING
+    (20) expression -> . ID
+
+    NUMBER          shift and go to state 18
+    STRING          shift and go to state 19
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 32
+
+state 27
+
+    (17) expression -> expression MINUS . expression
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . NUMBER
+    (19) expression -> . STRING
+    (20) expression -> . ID
+
+    NUMBER          shift and go to state 18
+    STRING          shift and go to state 19
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 33
+
+state 28
+
+    (15) while_statement -> WHILE expression statement_list . END
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) variable_declaration -> . ID ASSIGN expression
+    (8) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (9) print_statement -> . PUTS STRING
+    (12) control_structure -> . if_statement
+    (13) control_structure -> . while_statement
+    (14) if_statement -> . IF expression statement_list END
+    (15) while_statement -> . WHILE expression statement_list END
+
+    END             shift and go to state 34
+    ID              shift and go to state 7
+    PUTS            shift and go to state 8
+    IF              shift and go to state 11
+    WHILE           shift and go to state 12
+
+    statement                      shift and go to state 13
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+
+state 29
+
+    (8) print_statement -> PUTS LPAREN argument_list RPAREN .
+
+    ID              reduce using rule 8 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    PUTS            reduce using rule 8 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    IF              reduce using rule 8 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    WHILE           reduce using rule 8 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    $end            reduce using rule 8 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    END             reduce using rule 8 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+
+
+state 30
+
+    (10) argument_list -> argument_list COMMA . expression
+    (16) expression -> . expression PLUS expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . NUMBER
+    (19) expression -> . STRING
+    (20) expression -> . ID
+
+    NUMBER          shift and go to state 18
+    STRING          shift and go to state 19
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 35
+
+state 31
+
+    (14) if_statement -> IF expression statement_list END .
+
+    ID              reduce using rule 14 (if_statement -> IF expression statement_list END .)
+    PUTS            reduce using rule 14 (if_statement -> IF expression statement_list END .)
+    IF              reduce using rule 14 (if_statement -> IF expression statement_list END .)
+    WHILE           reduce using rule 14 (if_statement -> IF expression statement_list END .)
+    $end            reduce using rule 14 (if_statement -> IF expression statement_list END .)
+    END             reduce using rule 14 (if_statement -> IF expression statement_list END .)
+
+
+state 32
+
+    (16) expression -> expression PLUS expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MINUS expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    ID              reduce using rule 16 (expression -> expression PLUS expression .)
+    PUTS            reduce using rule 16 (expression -> expression PLUS expression .)
+    IF              reduce using rule 16 (expression -> expression PLUS expression .)
+    WHILE           reduce using rule 16 (expression -> expression PLUS expression .)
+    $end            reduce using rule 16 (expression -> expression PLUS expression .)
+    END             reduce using rule 16 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 16 (expression -> expression PLUS expression .)
+    COMMA           reduce using rule 16 (expression -> expression PLUS expression .)
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+
+  ! PLUS            [ reduce using rule 16 (expression -> expression PLUS expression .) ]
+  ! MINUS           [ reduce using rule 16 (expression -> expression PLUS expression .) ]
+
+
+state 33
+
+    (17) expression -> expression MINUS expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MINUS expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    ID              reduce using rule 17 (expression -> expression MINUS expression .)
+    PUTS            reduce using rule 17 (expression -> expression MINUS expression .)
+    IF              reduce using rule 17 (expression -> expression MINUS expression .)
+    WHILE           reduce using rule 17 (expression -> expression MINUS expression .)
+    $end            reduce using rule 17 (expression -> expression MINUS expression .)
+    END             reduce using rule 17 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 17 (expression -> expression MINUS expression .)
+    COMMA           reduce using rule 17 (expression -> expression MINUS expression .)
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+
+  ! PLUS            [ reduce using rule 17 (expression -> expression MINUS expression .) ]
+  ! MINUS           [ reduce using rule 17 (expression -> expression MINUS expression .) ]
+
+
+state 34
+
+    (15) while_statement -> WHILE expression statement_list END .
+
+    ID              reduce using rule 15 (while_statement -> WHILE expression statement_list END .)
+    PUTS            reduce using rule 15 (while_statement -> WHILE expression statement_list END .)
+    IF              reduce using rule 15 (while_statement -> WHILE expression statement_list END .)
+    WHILE           reduce using rule 15 (while_statement -> WHILE expression statement_list END .)
+    $end            reduce using rule 15 (while_statement -> WHILE expression statement_list END .)
+    END             reduce using rule 15 (while_statement -> WHILE expression statement_list END .)
+
+
+state 35
+
+    (10) argument_list -> argument_list COMMA expression .
+    (16) expression -> expression . PLUS expression
+    (17) expression -> expression . MINUS expression
+
+    RPAREN          reduce using rule 10 (argument_list -> argument_list COMMA expression .)
+    COMMA           reduce using rule 10 (argument_list -> argument_list COMMA expression .)
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 33 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 33 resolved as shift

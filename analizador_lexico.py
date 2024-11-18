@@ -1,8 +1,8 @@
 import ply.lex as lex
-import datetime
 import os
+import datetime
 
-# Fulco Pincay
+# Lista de tokens
 tokens = (
     'ID', 'INSTANCE_VAR', 'CLASS_VAR', 'GLOBAL_VAR',  # Identificadores y variables
     'NUMBER', 'STRING',                               # Números y strings
@@ -11,14 +11,11 @@ tokens = (
     'EQ', 'NEQ', 'GT', 'LT', 'GTE', 'LTE',            # Comparadores
     'ASSIGN', 'PLUS_ASSIGN', 'MINUS_ASSIGN',          # Asignación
     'LPAREN', 'RPAREN', 'LBRACE', 'RBRACE',           # Delimitadores
-    'COMMA', 'DOT', 'COLON', 'SEMICOLON',             # Otros
-    'LBRACKET', 'RBRACKET', 'AMPERSAND',
-    'MOD', 'EXP',                                     #Operadores de modulo y exponenciacion
-     'TIMES_ASSIGN', 'DIVIDE_ASSIGN', 'MOD_ASSIGN',    # Más operadores de asignación
-    'FLECHA', 'RANGE',                            
+    'COMMA', 'DOT', 'COLON', 'SEMICOLON',             # Otros delimitadores
+    'LBRACKET', 'RBRACKET',                           # Más delimitadores
 )
 
-
+# Palabras reservadas
 reserved = {
     'if': 'IF',
     'else': 'ELSE',
@@ -31,16 +28,13 @@ reserved = {
     'true': 'TRUE',
     'false': 'FALSE',
     'nil': 'NIL',
-    'next': 'NEXT',
-    'begin': 'BEGIN',
-    'end': 'END'
-
+    'puts': 'PUTS'  # Agregado para impresión
 }
 
-
+# Agregar palabras reservadas a tokens
 tokens += tuple(reserved.values())
 
-# Fulco Pincay
+# --- Definición de reglas para los tokens ---
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
@@ -54,35 +48,27 @@ t_LTE = r'<='
 t_ASSIGN = r'='
 t_PLUS_ASSIGN = r'\+='
 t_MINUS_ASSIGN = r'-='
-#Adrian Salamea \
-t_TIMES_ASSIGN = r'\*='
-t_DIVIDE_ASSIGN = r'\='
-t_MOD_ASSIGN = r'\%='
-
-#Pedro Barahona
-t_RANGE = r'\.\.'
-
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
+t_LBRACKET = r'\['
+t_RBRACKET = r'\]'
 t_COMMA = r','
 t_DOT = r'\.'
 t_COLON = r':'
 t_SEMICOLON = r';'
-t_LBRACKET = r'\['
-t_RBRACKET = r'\]'
-
-
 t_AND = r'&&'
-t_AMPERSAND = r'&'
+t_OR = r'\|\|'
+t_NOT = r'!'
 
-#Adrian Salamea 
-t_MOD = r'%'
-t_EXP = r'\*\*'
-t_FLECHA = r'=>'
+# Identificadores y palabras reservadas
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value, 'ID')  # Verificar palabras reservadas
+    return t
 
-# Fulco Pincay
+# Variables
 def t_INSTANCE_VAR(t):
     r'@[a-zA-Z_][a-zA-Z_0-9]*'
     return t
@@ -95,68 +81,34 @@ def t_GLOBAL_VAR(t):
     r'\$[a-zA-Z_][a-zA-Z_0-9]*'
     return t
 
-
-def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'ID')  
-    return t
-
-
+# Números
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-
+# Strings
 def t_STRING(t):
     r'\"([^\\\n]|(\\.))*?\"'
     return t
 
-
-t_ignore = ' \t'
-
-
-def t_error(t):
-    print(f"Illegal character '{t.value[0]}' at line {t.lineno}")
-    t.lexer.skip(1)
-
-
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
-#Adrian Salamea 
+# Ignorar comentarios
 def t_COMMENT(t):
     r'\#.*'
     pass
 
+# Ignorar espacios y tabulaciones
+t_ignore = ' \t'
+
+# Nueva línea
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+# Manejo de errores
+def t_error(t):
+    print(f"Illegal character '{t.value[0]}' at line {t.lineno}")
+    t.lexer.skip(1)
+
+# Construcción del lexer
 lexer = lex.lex()
-
-
-def generate_log(input_data, user_name):
-    lexer.input(input_data)
-
-    if not os.path.exists("logs"):
-        os.makedirs("logs")
-
-    log_name = f'logs/lexico-{user_name}-{datetime.datetime.now().strftime("%d%m%Y-%Hh%M")}.txt'
-    with open(log_name, 'w') as log_file:
-        while True:
-            tok = lexer.token()
-            if not tok:
-                break
-            log_file.write(f"{tok.type} - {tok.value} - Linea {tok.lineno} - Posicion {tok.lexpos}\n")
-
-if __name__ == "__main__":
-   
-    print("Directorio actual:", os.getcwd())
-
-   
-    print("Archivos en el directorio especificado:", os.listdir("C:/Users/DETPC/OneDrive - Escuela Superior Politécnica del Litoral/LP/Proyectos/lexer"))
-
-    try:
-        with open("C:/Users/DETPC/OneDrive - Escuela Superior Politécnica del Litoral/LP/Proyectos/lexer/algoritmo2.rb", "r") as f:
-            data = f.read()
-            generate_log(data, "pbarahon")  
-    except FileNotFoundError:
-        print("Error: archivo de prueba 'algoritmo2.rb' no encontrado. Verifica la ruta.")
-        

@@ -1,0 +1,3 @@
+Error sintáctico en token '@nombre' línea 3
+Error sintáctico en token '>' línea 13
+Error sintáctico en token '(' línea 31
