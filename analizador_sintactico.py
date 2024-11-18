@@ -70,7 +70,7 @@ def log_error(message):
     """Guarda los errores en un archivo de log."""
     if not os.path.exists("logs"):
         os.makedirs("logs")
-    log_name = f'logs/sintactico-{datetime.datetime.now().strftime("%d%m%Y-%Hh%M")}.txt'
+    log_name = f'logs/sintactico-Fulcopin-{datetime.datetime.now().strftime("%d%m%Y-%Hh%M")}.txt'
     with open(log_name, 'a') as log_file:
         log_file.write(message + '\n')
 
