@@ -16,7 +16,14 @@ def p_statement_list(p):
 def p_statement(p):
     '''statement : variable_declaration
                  | print_statement
-                 | control_structure'''
+                 | control_structure
+                 | array_declaration
+                 | hash_declaration
+                 | input_statement'''
+    pass
+#Solicitud de datos por teclado
+def p_input_statement(p):
+    '''input_statement : ID ASSIGN GETS'''
     pass
 
 def p_variable_declaration(p):
@@ -25,7 +32,9 @@ def p_variable_declaration(p):
 
 def p_print_statement(p):
     '''print_statement : PUTS LPAREN argument_list RPAREN
-                       | PUTS STRING'''
+                       | PUTS LPAREN RPAREN
+                       | PUTS STRING
+                       | PUTS'''
     pass
 
 def p_argument_list(p):
@@ -52,6 +61,34 @@ def p_expression(p):
                   | NUMBER
                   | STRING
                   | ID'''
+    pass
+
+# Reglas para arrays
+def p_array_declaration(p):
+    '''array_declaration : ID ASSIGN LBRACKET array_elements RBRACKET
+                         | ID ASSIGN LBRACKET RBRACKET'''
+    pass
+
+def p_array_elements(p):
+    '''array_elements : array_elements COMMA expression
+                      | expression'''
+    pass
+
+# Reglas para hashes
+def p_hash_declaration(p):
+    '''hash_declaration : ID ASSIGN LBRACE hash_elements RBRACE
+                        | ID ASSIGN LBRACE RBRACE'''
+    pass
+
+def p_hash_elements(p):
+    '''hash_elements : hash_elements COMMA hash_pair
+                     | hash_pair'''
+    pass
+
+def p_hash_pair(p):
+    '''hash_pair : expression COLON expression
+                 | STRING COLON expression
+                 | expression HASHROCKET expression'''
     pass
 
 # Manejo de errores

@@ -28,7 +28,8 @@ reserved = {
     'true': 'TRUE',
     'false': 'FALSE',
     'nil': 'NIL',
-    'puts': 'PUTS'  # Agregado para impresión
+    'puts': 'PUTS',
+    'gets' : 'GETS'  # Agregado para impresión
 }
 
 # Agregar palabras reservadas a tokens
