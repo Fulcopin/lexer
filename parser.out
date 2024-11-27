@@ -2,16 +2,11 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    AND
-    CLASS
     CLASS_VAR
-    DEF
     DIVIDE
     DO
-    DOT
     ELSE
     EQ
-    FALSE
     GLOBAL_VAR
     GT
     GTE
@@ -19,15 +14,9 @@ Unused terminals:
     LT
     LTE
     MINUS_ASSIGN
-    MODULE
     NEQ
-    NIL
-    NOT
-    OR
     PLUS_ASSIGN
-    SEMICOLON
     TIMES
-    TRUE
 
 Grammar
 
@@ -69,27 +58,24 @@ Rule 34    hash_elements -> hash_pair
 Rule 35    hash_pair -> expression COLON expression
 Rule 36    hash_pair -> STRING COLON expression
 Rule 37    hash_pair -> expression HASHROCKET expression
+Rule 38    empty -> <empty>
 
 Terminals, with rules where they appear
 
-AND                  : 
 ASSIGN               : 10 11 27 28 31 32
-CLASS                : 
 CLASS_VAR            : 
 COLON                : 35 36
 COMMA                : 16 29 33
-DEF                  : 
 DIVIDE               : 
 DO                   : 
-DOT                  : 
 ELSE                 : 
 END                  : 20 21
 EQ                   : 
-FALSE                : 
 GETS                 : 10
 GLOBAL_VAR           : 
 GT                   : 
 GTE                  : 
+HASHROCKET           : 37
 ID                   : 10 11 26 27 28 31 32
 IF                   : 20
 INSTANCE_VAR         : 
@@ -100,32 +86,26 @@ LT                   :
 LTE                  : 
 MINUS                : 23
 MINUS_ASSIGN         : 
-MODULE               : 
 NEQ                  : 
-NIL                  : 
-NOT                  : 
 NUMBER               : 24
-OR                   : 
 PLUS                 : 22
 PLUS_ASSIGN          : 
 PUTS                 : 12 13 14 15
 RBRACE               : 31 32
 RBRACKET             : 27 28
 RPAREN               : 12 13
-SEMICOLON            : 
 STRING               : 14 25 36
 TIMES                : 
-TRUE                 : 
 WHILE                : 21
 error                : 
 
 Nonterminals, with rules where they appear
 
-HASHROCKET           : 37
 argument_list        : 12 16
 array_declaration    : 7
 array_elements       : 27 29
 control_structure    : 6
+empty                : 
 expression           : 11 16 17 20 21 22 22 23 23 29 30 35 35 36 37 37
 hash_declaration     : 8
 hash_elements        : 31 33
@@ -139,3 +119,1071 @@ statement_list       : 1 2 20 21
 variable_declaration : 4
 while_statement      : 19
 
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statement_list
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) statement -> . array_declaration
+    (8) statement -> . hash_declaration
+    (9) statement -> . input_statement
+    (11) variable_declaration -> . ID ASSIGN expression
+    (12) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (13) print_statement -> . PUTS LPAREN RPAREN
+    (14) print_statement -> . PUTS STRING
+    (15) print_statement -> . PUTS
+    (18) control_structure -> . if_statement
+    (19) control_structure -> . while_statement
+    (27) array_declaration -> . ID ASSIGN LBRACKET array_elements RBRACKET
+    (28) array_declaration -> . ID ASSIGN LBRACKET RBRACKET
+    (31) hash_declaration -> . ID ASSIGN LBRACE hash_elements RBRACE
+    (32) hash_declaration -> . ID ASSIGN LBRACE RBRACE
+    (10) input_statement -> . ID ASSIGN GETS
+    (20) if_statement -> . IF expression statement_list END
+    (21) while_statement -> . WHILE expression statement_list END
+
+    ID              shift and go to state 10
+    PUTS            shift and go to state 11
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+
+    program                        shift and go to state 1
+    statement_list                 shift and go to state 2
+    statement                      shift and go to state 3
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    array_declaration              shift and go to state 7
+    hash_declaration               shift and go to state 8
+    input_statement                shift and go to state 9
+    if_statement                   shift and go to state 12
+    while_statement                shift and go to state 13
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) statement -> . array_declaration
+    (8) statement -> . hash_declaration
+    (9) statement -> . input_statement
+    (11) variable_declaration -> . ID ASSIGN expression
+    (12) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (13) print_statement -> . PUTS LPAREN RPAREN
+    (14) print_statement -> . PUTS STRING
+    (15) print_statement -> . PUTS
+    (18) control_structure -> . if_statement
+    (19) control_structure -> . while_statement
+    (27) array_declaration -> . ID ASSIGN LBRACKET array_elements RBRACKET
+    (28) array_declaration -> . ID ASSIGN LBRACKET RBRACKET
+    (31) hash_declaration -> . ID ASSIGN LBRACE hash_elements RBRACE
+    (32) hash_declaration -> . ID ASSIGN LBRACE RBRACE
+    (10) input_statement -> . ID ASSIGN GETS
+    (20) if_statement -> . IF expression statement_list END
+    (21) while_statement -> . WHILE expression statement_list END
+
+    $end            reduce using rule 1 (program -> statement_list .)
+    ID              shift and go to state 10
+    PUTS            shift and go to state 11
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+
+    statement                      shift and go to state 16
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    array_declaration              shift and go to state 7
+    hash_declaration               shift and go to state 8
+    input_statement                shift and go to state 9
+    if_statement                   shift and go to state 12
+    while_statement                shift and go to state 13
+
+state 3
+
+    (3) statement_list -> statement .
+
+    ID              reduce using rule 3 (statement_list -> statement .)
+    PUTS            reduce using rule 3 (statement_list -> statement .)
+    IF              reduce using rule 3 (statement_list -> statement .)
+    WHILE           reduce using rule 3 (statement_list -> statement .)
+    $end            reduce using rule 3 (statement_list -> statement .)
+    END             reduce using rule 3 (statement_list -> statement .)
+
+
+state 4
+
+    (4) statement -> variable_declaration .
+
+    ID              reduce using rule 4 (statement -> variable_declaration .)
+    PUTS            reduce using rule 4 (statement -> variable_declaration .)
+    IF              reduce using rule 4 (statement -> variable_declaration .)
+    WHILE           reduce using rule 4 (statement -> variable_declaration .)
+    $end            reduce using rule 4 (statement -> variable_declaration .)
+    END             reduce using rule 4 (statement -> variable_declaration .)
+
+
+state 5
+
+    (5) statement -> print_statement .
+
+    ID              reduce using rule 5 (statement -> print_statement .)
+    PUTS            reduce using rule 5 (statement -> print_statement .)
+    IF              reduce using rule 5 (statement -> print_statement .)
+    WHILE           reduce using rule 5 (statement -> print_statement .)
+    $end            reduce using rule 5 (statement -> print_statement .)
+    END             reduce using rule 5 (statement -> print_statement .)
+
+
+state 6
+
+    (6) statement -> control_structure .
+
+    ID              reduce using rule 6 (statement -> control_structure .)
+    PUTS            reduce using rule 6 (statement -> control_structure .)
+    IF              reduce using rule 6 (statement -> control_structure .)
+    WHILE           reduce using rule 6 (statement -> control_structure .)
+    $end            reduce using rule 6 (statement -> control_structure .)
+    END             reduce using rule 6 (statement -> control_structure .)
+
+
+state 7
+
+    (7) statement -> array_declaration .
+
+    ID              reduce using rule 7 (statement -> array_declaration .)
+    PUTS            reduce using rule 7 (statement -> array_declaration .)
+    IF              reduce using rule 7 (statement -> array_declaration .)
+    WHILE           reduce using rule 7 (statement -> array_declaration .)
+    $end            reduce using rule 7 (statement -> array_declaration .)
+    END             reduce using rule 7 (statement -> array_declaration .)
+
+
+state 8
+
+    (8) statement -> hash_declaration .
+
+    ID              reduce using rule 8 (statement -> hash_declaration .)
+    PUTS            reduce using rule 8 (statement -> hash_declaration .)
+    IF              reduce using rule 8 (statement -> hash_declaration .)
+    WHILE           reduce using rule 8 (statement -> hash_declaration .)
+    $end            reduce using rule 8 (statement -> hash_declaration .)
+    END             reduce using rule 8 (statement -> hash_declaration .)
+
+
+state 9
+
+    (9) statement -> input_statement .
+
+    ID              reduce using rule 9 (statement -> input_statement .)
+    PUTS            reduce using rule 9 (statement -> input_statement .)
+    IF              reduce using rule 9 (statement -> input_statement .)
+    WHILE           reduce using rule 9 (statement -> input_statement .)
+    $end            reduce using rule 9 (statement -> input_statement .)
+    END             reduce using rule 9 (statement -> input_statement .)
+
+
+state 10
+
+    (11) variable_declaration -> ID . ASSIGN expression
+    (27) array_declaration -> ID . ASSIGN LBRACKET array_elements RBRACKET
+    (28) array_declaration -> ID . ASSIGN LBRACKET RBRACKET
+    (31) hash_declaration -> ID . ASSIGN LBRACE hash_elements RBRACE
+    (32) hash_declaration -> ID . ASSIGN LBRACE RBRACE
+    (10) input_statement -> ID . ASSIGN GETS
+
+    ASSIGN          shift and go to state 17
+
+
+state 11
+
+    (12) print_statement -> PUTS . LPAREN argument_list RPAREN
+    (13) print_statement -> PUTS . LPAREN RPAREN
+    (14) print_statement -> PUTS . STRING
+    (15) print_statement -> PUTS .
+
+    LPAREN          shift and go to state 18
+    STRING          shift and go to state 19
+    ID              reduce using rule 15 (print_statement -> PUTS .)
+    PUTS            reduce using rule 15 (print_statement -> PUTS .)
+    IF              reduce using rule 15 (print_statement -> PUTS .)
+    WHILE           reduce using rule 15 (print_statement -> PUTS .)
+    $end            reduce using rule 15 (print_statement -> PUTS .)
+    END             reduce using rule 15 (print_statement -> PUTS .)
+
+
+state 12
+
+    (18) control_structure -> if_statement .
+
+    ID              reduce using rule 18 (control_structure -> if_statement .)
+    PUTS            reduce using rule 18 (control_structure -> if_statement .)
+    IF              reduce using rule 18 (control_structure -> if_statement .)
+    WHILE           reduce using rule 18 (control_structure -> if_statement .)
+    $end            reduce using rule 18 (control_structure -> if_statement .)
+    END             reduce using rule 18 (control_structure -> if_statement .)
+
+
+state 13
+
+    (19) control_structure -> while_statement .
+
+    ID              reduce using rule 19 (control_structure -> while_statement .)
+    PUTS            reduce using rule 19 (control_structure -> while_statement .)
+    IF              reduce using rule 19 (control_structure -> while_statement .)
+    WHILE           reduce using rule 19 (control_structure -> while_statement .)
+    $end            reduce using rule 19 (control_structure -> while_statement .)
+    END             reduce using rule 19 (control_structure -> while_statement .)
+
+
+state 14
+
+    (20) if_statement -> IF . expression statement_list END
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 20
+
+state 15
+
+    (21) while_statement -> WHILE . expression statement_list END
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 24
+
+state 16
+
+    (2) statement_list -> statement_list statement .
+
+    ID              reduce using rule 2 (statement_list -> statement_list statement .)
+    PUTS            reduce using rule 2 (statement_list -> statement_list statement .)
+    IF              reduce using rule 2 (statement_list -> statement_list statement .)
+    WHILE           reduce using rule 2 (statement_list -> statement_list statement .)
+    $end            reduce using rule 2 (statement_list -> statement_list statement .)
+    END             reduce using rule 2 (statement_list -> statement_list statement .)
+
+
+state 17
+
+    (11) variable_declaration -> ID ASSIGN . expression
+    (27) array_declaration -> ID ASSIGN . LBRACKET array_elements RBRACKET
+    (28) array_declaration -> ID ASSIGN . LBRACKET RBRACKET
+    (31) hash_declaration -> ID ASSIGN . LBRACE hash_elements RBRACE
+    (32) hash_declaration -> ID ASSIGN . LBRACE RBRACE
+    (10) input_statement -> ID ASSIGN . GETS
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    LBRACKET        shift and go to state 26
+    LBRACE          shift and go to state 27
+    GETS            shift and go to state 28
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 25
+
+state 18
+
+    (12) print_statement -> PUTS LPAREN . argument_list RPAREN
+    (13) print_statement -> PUTS LPAREN . RPAREN
+    (16) argument_list -> . argument_list COMMA expression
+    (17) argument_list -> . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    RPAREN          shift and go to state 30
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    argument_list                  shift and go to state 29
+    expression                     shift and go to state 31
+
+state 19
+
+    (14) print_statement -> PUTS STRING .
+
+    ID              reduce using rule 14 (print_statement -> PUTS STRING .)
+    PUTS            reduce using rule 14 (print_statement -> PUTS STRING .)
+    IF              reduce using rule 14 (print_statement -> PUTS STRING .)
+    WHILE           reduce using rule 14 (print_statement -> PUTS STRING .)
+    $end            reduce using rule 14 (print_statement -> PUTS STRING .)
+    END             reduce using rule 14 (print_statement -> PUTS STRING .)
+
+
+state 20
+
+    (20) if_statement -> IF expression . statement_list END
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) statement -> . array_declaration
+    (8) statement -> . hash_declaration
+    (9) statement -> . input_statement
+    (11) variable_declaration -> . ID ASSIGN expression
+    (12) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (13) print_statement -> . PUTS LPAREN RPAREN
+    (14) print_statement -> . PUTS STRING
+    (15) print_statement -> . PUTS
+    (18) control_structure -> . if_statement
+    (19) control_structure -> . while_statement
+    (27) array_declaration -> . ID ASSIGN LBRACKET array_elements RBRACKET
+    (28) array_declaration -> . ID ASSIGN LBRACKET RBRACKET
+    (31) hash_declaration -> . ID ASSIGN LBRACE hash_elements RBRACE
+    (32) hash_declaration -> . ID ASSIGN LBRACE RBRACE
+    (10) input_statement -> . ID ASSIGN GETS
+    (20) if_statement -> . IF expression statement_list END
+    (21) while_statement -> . WHILE expression statement_list END
+
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    ID              shift and go to state 10
+    PUTS            shift and go to state 11
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+
+    statement_list                 shift and go to state 32
+    statement                      shift and go to state 3
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    array_declaration              shift and go to state 7
+    hash_declaration               shift and go to state 8
+    input_statement                shift and go to state 9
+    if_statement                   shift and go to state 12
+    while_statement                shift and go to state 13
+
+state 21
+
+    (24) expression -> NUMBER .
+
+    PLUS            reduce using rule 24 (expression -> NUMBER .)
+    MINUS           reduce using rule 24 (expression -> NUMBER .)
+    ID              reduce using rule 24 (expression -> NUMBER .)
+    PUTS            reduce using rule 24 (expression -> NUMBER .)
+    IF              reduce using rule 24 (expression -> NUMBER .)
+    WHILE           reduce using rule 24 (expression -> NUMBER .)
+    $end            reduce using rule 24 (expression -> NUMBER .)
+    END             reduce using rule 24 (expression -> NUMBER .)
+    RPAREN          reduce using rule 24 (expression -> NUMBER .)
+    COMMA           reduce using rule 24 (expression -> NUMBER .)
+    RBRACKET        reduce using rule 24 (expression -> NUMBER .)
+    COLON           reduce using rule 24 (expression -> NUMBER .)
+    HASHROCKET      reduce using rule 24 (expression -> NUMBER .)
+    RBRACE          reduce using rule 24 (expression -> NUMBER .)
+
+
+state 22
+
+    (25) expression -> STRING .
+
+    PLUS            reduce using rule 25 (expression -> STRING .)
+    MINUS           reduce using rule 25 (expression -> STRING .)
+    ID              reduce using rule 25 (expression -> STRING .)
+    PUTS            reduce using rule 25 (expression -> STRING .)
+    IF              reduce using rule 25 (expression -> STRING .)
+    WHILE           reduce using rule 25 (expression -> STRING .)
+    $end            reduce using rule 25 (expression -> STRING .)
+    END             reduce using rule 25 (expression -> STRING .)
+    RPAREN          reduce using rule 25 (expression -> STRING .)
+    COMMA           reduce using rule 25 (expression -> STRING .)
+    RBRACKET        reduce using rule 25 (expression -> STRING .)
+    COLON           reduce using rule 25 (expression -> STRING .)
+    HASHROCKET      reduce using rule 25 (expression -> STRING .)
+    RBRACE          reduce using rule 25 (expression -> STRING .)
+
+
+state 23
+
+    (26) expression -> ID .
+
+    PLUS            reduce using rule 26 (expression -> ID .)
+    MINUS           reduce using rule 26 (expression -> ID .)
+    ID              reduce using rule 26 (expression -> ID .)
+    PUTS            reduce using rule 26 (expression -> ID .)
+    IF              reduce using rule 26 (expression -> ID .)
+    WHILE           reduce using rule 26 (expression -> ID .)
+    $end            reduce using rule 26 (expression -> ID .)
+    END             reduce using rule 26 (expression -> ID .)
+    RPAREN          reduce using rule 26 (expression -> ID .)
+    COMMA           reduce using rule 26 (expression -> ID .)
+    RBRACKET        reduce using rule 26 (expression -> ID .)
+    COLON           reduce using rule 26 (expression -> ID .)
+    HASHROCKET      reduce using rule 26 (expression -> ID .)
+    RBRACE          reduce using rule 26 (expression -> ID .)
+
+
+state 24
+
+    (21) while_statement -> WHILE expression . statement_list END
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) statement -> . array_declaration
+    (8) statement -> . hash_declaration
+    (9) statement -> . input_statement
+    (11) variable_declaration -> . ID ASSIGN expression
+    (12) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (13) print_statement -> . PUTS LPAREN RPAREN
+    (14) print_statement -> . PUTS STRING
+    (15) print_statement -> . PUTS
+    (18) control_structure -> . if_statement
+    (19) control_structure -> . while_statement
+    (27) array_declaration -> . ID ASSIGN LBRACKET array_elements RBRACKET
+    (28) array_declaration -> . ID ASSIGN LBRACKET RBRACKET
+    (31) hash_declaration -> . ID ASSIGN LBRACE hash_elements RBRACE
+    (32) hash_declaration -> . ID ASSIGN LBRACE RBRACE
+    (10) input_statement -> . ID ASSIGN GETS
+    (20) if_statement -> . IF expression statement_list END
+    (21) while_statement -> . WHILE expression statement_list END
+
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+    ID              shift and go to state 10
+    PUTS            shift and go to state 11
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+
+    statement_list                 shift and go to state 35
+    statement                      shift and go to state 3
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    array_declaration              shift and go to state 7
+    hash_declaration               shift and go to state 8
+    input_statement                shift and go to state 9
+    if_statement                   shift and go to state 12
+    while_statement                shift and go to state 13
+
+state 25
+
+    (11) variable_declaration -> ID ASSIGN expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    ID              reduce using rule 11 (variable_declaration -> ID ASSIGN expression .)
+    PUTS            reduce using rule 11 (variable_declaration -> ID ASSIGN expression .)
+    IF              reduce using rule 11 (variable_declaration -> ID ASSIGN expression .)
+    WHILE           reduce using rule 11 (variable_declaration -> ID ASSIGN expression .)
+    $end            reduce using rule 11 (variable_declaration -> ID ASSIGN expression .)
+    END             reduce using rule 11 (variable_declaration -> ID ASSIGN expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+
+state 26
+
+    (27) array_declaration -> ID ASSIGN LBRACKET . array_elements RBRACKET
+    (28) array_declaration -> ID ASSIGN LBRACKET . RBRACKET
+    (29) array_elements -> . array_elements COMMA expression
+    (30) array_elements -> . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    RBRACKET        shift and go to state 37
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    array_elements                 shift and go to state 36
+    expression                     shift and go to state 38
+
+state 27
+
+    (31) hash_declaration -> ID ASSIGN LBRACE . hash_elements RBRACE
+    (32) hash_declaration -> ID ASSIGN LBRACE . RBRACE
+    (33) hash_elements -> . hash_elements COMMA hash_pair
+    (34) hash_elements -> . hash_pair
+    (35) hash_pair -> . expression COLON expression
+    (36) hash_pair -> . STRING COLON expression
+    (37) hash_pair -> . expression HASHROCKET expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    RBRACE          shift and go to state 40
+    STRING          shift and go to state 43
+    NUMBER          shift and go to state 21
+    ID              shift and go to state 23
+
+    hash_elements                  shift and go to state 39
+    hash_pair                      shift and go to state 41
+    expression                     shift and go to state 42
+
+state 28
+
+    (10) input_statement -> ID ASSIGN GETS .
+
+    ID              reduce using rule 10 (input_statement -> ID ASSIGN GETS .)
+    PUTS            reduce using rule 10 (input_statement -> ID ASSIGN GETS .)
+    IF              reduce using rule 10 (input_statement -> ID ASSIGN GETS .)
+    WHILE           reduce using rule 10 (input_statement -> ID ASSIGN GETS .)
+    $end            reduce using rule 10 (input_statement -> ID ASSIGN GETS .)
+    END             reduce using rule 10 (input_statement -> ID ASSIGN GETS .)
+
+
+state 29
+
+    (12) print_statement -> PUTS LPAREN argument_list . RPAREN
+    (16) argument_list -> argument_list . COMMA expression
+
+    RPAREN          shift and go to state 44
+    COMMA           shift and go to state 45
+
+
+state 30
+
+    (13) print_statement -> PUTS LPAREN RPAREN .
+
+    ID              reduce using rule 13 (print_statement -> PUTS LPAREN RPAREN .)
+    PUTS            reduce using rule 13 (print_statement -> PUTS LPAREN RPAREN .)
+    IF              reduce using rule 13 (print_statement -> PUTS LPAREN RPAREN .)
+    WHILE           reduce using rule 13 (print_statement -> PUTS LPAREN RPAREN .)
+    $end            reduce using rule 13 (print_statement -> PUTS LPAREN RPAREN .)
+    END             reduce using rule 13 (print_statement -> PUTS LPAREN RPAREN .)
+
+
+state 31
+
+    (17) argument_list -> expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    RPAREN          reduce using rule 17 (argument_list -> expression .)
+    COMMA           reduce using rule 17 (argument_list -> expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+
+state 32
+
+    (20) if_statement -> IF expression statement_list . END
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) statement -> . array_declaration
+    (8) statement -> . hash_declaration
+    (9) statement -> . input_statement
+    (11) variable_declaration -> . ID ASSIGN expression
+    (12) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (13) print_statement -> . PUTS LPAREN RPAREN
+    (14) print_statement -> . PUTS STRING
+    (15) print_statement -> . PUTS
+    (18) control_structure -> . if_statement
+    (19) control_structure -> . while_statement
+    (27) array_declaration -> . ID ASSIGN LBRACKET array_elements RBRACKET
+    (28) array_declaration -> . ID ASSIGN LBRACKET RBRACKET
+    (31) hash_declaration -> . ID ASSIGN LBRACE hash_elements RBRACE
+    (32) hash_declaration -> . ID ASSIGN LBRACE RBRACE
+    (10) input_statement -> . ID ASSIGN GETS
+    (20) if_statement -> . IF expression statement_list END
+    (21) while_statement -> . WHILE expression statement_list END
+
+    END             shift and go to state 46
+    ID              shift and go to state 10
+    PUTS            shift and go to state 11
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+
+    statement                      shift and go to state 16
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    array_declaration              shift and go to state 7
+    hash_declaration               shift and go to state 8
+    input_statement                shift and go to state 9
+    if_statement                   shift and go to state 12
+    while_statement                shift and go to state 13
+
+state 33
+
+    (22) expression -> expression PLUS . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 47
+
+state 34
+
+    (23) expression -> expression MINUS . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 48
+
+state 35
+
+    (21) while_statement -> WHILE expression statement_list . END
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . variable_declaration
+    (5) statement -> . print_statement
+    (6) statement -> . control_structure
+    (7) statement -> . array_declaration
+    (8) statement -> . hash_declaration
+    (9) statement -> . input_statement
+    (11) variable_declaration -> . ID ASSIGN expression
+    (12) print_statement -> . PUTS LPAREN argument_list RPAREN
+    (13) print_statement -> . PUTS LPAREN RPAREN
+    (14) print_statement -> . PUTS STRING
+    (15) print_statement -> . PUTS
+    (18) control_structure -> . if_statement
+    (19) control_structure -> . while_statement
+    (27) array_declaration -> . ID ASSIGN LBRACKET array_elements RBRACKET
+    (28) array_declaration -> . ID ASSIGN LBRACKET RBRACKET
+    (31) hash_declaration -> . ID ASSIGN LBRACE hash_elements RBRACE
+    (32) hash_declaration -> . ID ASSIGN LBRACE RBRACE
+    (10) input_statement -> . ID ASSIGN GETS
+    (20) if_statement -> . IF expression statement_list END
+    (21) while_statement -> . WHILE expression statement_list END
+
+    END             shift and go to state 49
+    ID              shift and go to state 10
+    PUTS            shift and go to state 11
+    IF              shift and go to state 14
+    WHILE           shift and go to state 15
+
+    statement                      shift and go to state 16
+    variable_declaration           shift and go to state 4
+    print_statement                shift and go to state 5
+    control_structure              shift and go to state 6
+    array_declaration              shift and go to state 7
+    hash_declaration               shift and go to state 8
+    input_statement                shift and go to state 9
+    if_statement                   shift and go to state 12
+    while_statement                shift and go to state 13
+
+state 36
+
+    (27) array_declaration -> ID ASSIGN LBRACKET array_elements . RBRACKET
+    (29) array_elements -> array_elements . COMMA expression
+
+    RBRACKET        shift and go to state 50
+    COMMA           shift and go to state 51
+
+
+state 37
+
+    (28) array_declaration -> ID ASSIGN LBRACKET RBRACKET .
+
+    ID              reduce using rule 28 (array_declaration -> ID ASSIGN LBRACKET RBRACKET .)
+    PUTS            reduce using rule 28 (array_declaration -> ID ASSIGN LBRACKET RBRACKET .)
+    IF              reduce using rule 28 (array_declaration -> ID ASSIGN LBRACKET RBRACKET .)
+    WHILE           reduce using rule 28 (array_declaration -> ID ASSIGN LBRACKET RBRACKET .)
+    $end            reduce using rule 28 (array_declaration -> ID ASSIGN LBRACKET RBRACKET .)
+    END             reduce using rule 28 (array_declaration -> ID ASSIGN LBRACKET RBRACKET .)
+
+
+state 38
+
+    (30) array_elements -> expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    RBRACKET        reduce using rule 30 (array_elements -> expression .)
+    COMMA           reduce using rule 30 (array_elements -> expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+
+state 39
+
+    (31) hash_declaration -> ID ASSIGN LBRACE hash_elements . RBRACE
+    (33) hash_elements -> hash_elements . COMMA hash_pair
+
+    RBRACE          shift and go to state 52
+    COMMA           shift and go to state 53
+
+
+state 40
+
+    (32) hash_declaration -> ID ASSIGN LBRACE RBRACE .
+
+    ID              reduce using rule 32 (hash_declaration -> ID ASSIGN LBRACE RBRACE .)
+    PUTS            reduce using rule 32 (hash_declaration -> ID ASSIGN LBRACE RBRACE .)
+    IF              reduce using rule 32 (hash_declaration -> ID ASSIGN LBRACE RBRACE .)
+    WHILE           reduce using rule 32 (hash_declaration -> ID ASSIGN LBRACE RBRACE .)
+    $end            reduce using rule 32 (hash_declaration -> ID ASSIGN LBRACE RBRACE .)
+    END             reduce using rule 32 (hash_declaration -> ID ASSIGN LBRACE RBRACE .)
+
+
+state 41
+
+    (34) hash_elements -> hash_pair .
+
+    RBRACE          reduce using rule 34 (hash_elements -> hash_pair .)
+    COMMA           reduce using rule 34 (hash_elements -> hash_pair .)
+
+
+state 42
+
+    (35) hash_pair -> expression . COLON expression
+    (37) hash_pair -> expression . HASHROCKET expression
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    COLON           shift and go to state 54
+    HASHROCKET      shift and go to state 55
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+
+state 43
+
+    (36) hash_pair -> STRING . COLON expression
+    (25) expression -> STRING .
+
+  ! shift/reduce conflict for COLON resolved as shift
+    COLON           shift and go to state 56
+    HASHROCKET      reduce using rule 25 (expression -> STRING .)
+    PLUS            reduce using rule 25 (expression -> STRING .)
+    MINUS           reduce using rule 25 (expression -> STRING .)
+
+  ! COLON           [ reduce using rule 25 (expression -> STRING .) ]
+
+
+state 44
+
+    (12) print_statement -> PUTS LPAREN argument_list RPAREN .
+
+    ID              reduce using rule 12 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    PUTS            reduce using rule 12 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    IF              reduce using rule 12 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    WHILE           reduce using rule 12 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    $end            reduce using rule 12 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+    END             reduce using rule 12 (print_statement -> PUTS LPAREN argument_list RPAREN .)
+
+
+state 45
+
+    (16) argument_list -> argument_list COMMA . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 57
+
+state 46
+
+    (20) if_statement -> IF expression statement_list END .
+
+    ID              reduce using rule 20 (if_statement -> IF expression statement_list END .)
+    PUTS            reduce using rule 20 (if_statement -> IF expression statement_list END .)
+    IF              reduce using rule 20 (if_statement -> IF expression statement_list END .)
+    WHILE           reduce using rule 20 (if_statement -> IF expression statement_list END .)
+    $end            reduce using rule 20 (if_statement -> IF expression statement_list END .)
+    END             reduce using rule 20 (if_statement -> IF expression statement_list END .)
+
+
+state 47
+
+    (22) expression -> expression PLUS expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    ID              reduce using rule 22 (expression -> expression PLUS expression .)
+    PUTS            reduce using rule 22 (expression -> expression PLUS expression .)
+    IF              reduce using rule 22 (expression -> expression PLUS expression .)
+    WHILE           reduce using rule 22 (expression -> expression PLUS expression .)
+    $end            reduce using rule 22 (expression -> expression PLUS expression .)
+    END             reduce using rule 22 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 22 (expression -> expression PLUS expression .)
+    COMMA           reduce using rule 22 (expression -> expression PLUS expression .)
+    RBRACKET        reduce using rule 22 (expression -> expression PLUS expression .)
+    COLON           reduce using rule 22 (expression -> expression PLUS expression .)
+    HASHROCKET      reduce using rule 22 (expression -> expression PLUS expression .)
+    RBRACE          reduce using rule 22 (expression -> expression PLUS expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+  ! PLUS            [ reduce using rule 22 (expression -> expression PLUS expression .) ]
+  ! MINUS           [ reduce using rule 22 (expression -> expression PLUS expression .) ]
+
+
+state 48
+
+    (23) expression -> expression MINUS expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    ID              reduce using rule 23 (expression -> expression MINUS expression .)
+    PUTS            reduce using rule 23 (expression -> expression MINUS expression .)
+    IF              reduce using rule 23 (expression -> expression MINUS expression .)
+    WHILE           reduce using rule 23 (expression -> expression MINUS expression .)
+    $end            reduce using rule 23 (expression -> expression MINUS expression .)
+    END             reduce using rule 23 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 23 (expression -> expression MINUS expression .)
+    COMMA           reduce using rule 23 (expression -> expression MINUS expression .)
+    RBRACKET        reduce using rule 23 (expression -> expression MINUS expression .)
+    COLON           reduce using rule 23 (expression -> expression MINUS expression .)
+    HASHROCKET      reduce using rule 23 (expression -> expression MINUS expression .)
+    RBRACE          reduce using rule 23 (expression -> expression MINUS expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+  ! PLUS            [ reduce using rule 23 (expression -> expression MINUS expression .) ]
+  ! MINUS           [ reduce using rule 23 (expression -> expression MINUS expression .) ]
+
+
+state 49
+
+    (21) while_statement -> WHILE expression statement_list END .
+
+    ID              reduce using rule 21 (while_statement -> WHILE expression statement_list END .)
+    PUTS            reduce using rule 21 (while_statement -> WHILE expression statement_list END .)
+    IF              reduce using rule 21 (while_statement -> WHILE expression statement_list END .)
+    WHILE           reduce using rule 21 (while_statement -> WHILE expression statement_list END .)
+    $end            reduce using rule 21 (while_statement -> WHILE expression statement_list END .)
+    END             reduce using rule 21 (while_statement -> WHILE expression statement_list END .)
+
+
+state 50
+
+    (27) array_declaration -> ID ASSIGN LBRACKET array_elements RBRACKET .
+
+    ID              reduce using rule 27 (array_declaration -> ID ASSIGN LBRACKET array_elements RBRACKET .)
+    PUTS            reduce using rule 27 (array_declaration -> ID ASSIGN LBRACKET array_elements RBRACKET .)
+    IF              reduce using rule 27 (array_declaration -> ID ASSIGN LBRACKET array_elements RBRACKET .)
+    WHILE           reduce using rule 27 (array_declaration -> ID ASSIGN LBRACKET array_elements RBRACKET .)
+    $end            reduce using rule 27 (array_declaration -> ID ASSIGN LBRACKET array_elements RBRACKET .)
+    END             reduce using rule 27 (array_declaration -> ID ASSIGN LBRACKET array_elements RBRACKET .)
+
+
+state 51
+
+    (29) array_elements -> array_elements COMMA . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 58
+
+state 52
+
+    (31) hash_declaration -> ID ASSIGN LBRACE hash_elements RBRACE .
+
+    ID              reduce using rule 31 (hash_declaration -> ID ASSIGN LBRACE hash_elements RBRACE .)
+    PUTS            reduce using rule 31 (hash_declaration -> ID ASSIGN LBRACE hash_elements RBRACE .)
+    IF              reduce using rule 31 (hash_declaration -> ID ASSIGN LBRACE hash_elements RBRACE .)
+    WHILE           reduce using rule 31 (hash_declaration -> ID ASSIGN LBRACE hash_elements RBRACE .)
+    $end            reduce using rule 31 (hash_declaration -> ID ASSIGN LBRACE hash_elements RBRACE .)
+    END             reduce using rule 31 (hash_declaration -> ID ASSIGN LBRACE hash_elements RBRACE .)
+
+
+state 53
+
+    (33) hash_elements -> hash_elements COMMA . hash_pair
+    (35) hash_pair -> . expression COLON expression
+    (36) hash_pair -> . STRING COLON expression
+    (37) hash_pair -> . expression HASHROCKET expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    STRING          shift and go to state 43
+    NUMBER          shift and go to state 21
+    ID              shift and go to state 23
+
+    hash_pair                      shift and go to state 59
+    expression                     shift and go to state 42
+
+state 54
+
+    (35) hash_pair -> expression COLON . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 60
+
+state 55
+
+    (37) hash_pair -> expression HASHROCKET . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 61
+
+state 56
+
+    (36) hash_pair -> STRING COLON . expression
+    (22) expression -> . expression PLUS expression
+    (23) expression -> . expression MINUS expression
+    (24) expression -> . NUMBER
+    (25) expression -> . STRING
+    (26) expression -> . ID
+
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+    ID              shift and go to state 23
+
+    expression                     shift and go to state 62
+
+state 57
+
+    (16) argument_list -> argument_list COMMA expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    RPAREN          reduce using rule 16 (argument_list -> argument_list COMMA expression .)
+    COMMA           reduce using rule 16 (argument_list -> argument_list COMMA expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+
+state 58
+
+    (29) array_elements -> array_elements COMMA expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    RBRACKET        reduce using rule 29 (array_elements -> array_elements COMMA expression .)
+    COMMA           reduce using rule 29 (array_elements -> array_elements COMMA expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+
+state 59
+
+    (33) hash_elements -> hash_elements COMMA hash_pair .
+
+    RBRACE          reduce using rule 33 (hash_elements -> hash_elements COMMA hash_pair .)
+    COMMA           reduce using rule 33 (hash_elements -> hash_elements COMMA hash_pair .)
+
+
+state 60
+
+    (35) hash_pair -> expression COLON expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    RBRACE          reduce using rule 35 (hash_pair -> expression COLON expression .)
+    COMMA           reduce using rule 35 (hash_pair -> expression COLON expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+
+state 61
+
+    (37) hash_pair -> expression HASHROCKET expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    RBRACE          reduce using rule 37 (hash_pair -> expression HASHROCKET expression .)
+    COMMA           reduce using rule 37 (hash_pair -> expression HASHROCKET expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+
+state 62
+
+    (36) hash_pair -> STRING COLON expression .
+    (22) expression -> expression . PLUS expression
+    (23) expression -> expression . MINUS expression
+
+    RBRACE          reduce using rule 36 (hash_pair -> STRING COLON expression .)
+    COMMA           reduce using rule 36 (hash_pair -> STRING COLON expression .)
+    PLUS            shift and go to state 33
+    MINUS           shift and go to state 34
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for COLON in state 43 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 47 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 47 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 48 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 48 resolved as shift

@@ -6,12 +6,15 @@ import datetime
 # --- Reglas Sintácticas ---
 def p_program(p):
     '''program : statement_list'''
-    pass
+    p[0] = p[1]  # Retorna la lista de declaraciones
 
 def p_statement_list(p):
     '''statement_list : statement_list statement
                       | statement'''
-    pass
+    if len(p) == 3:  # Si hay múltiples declaraciones
+        p[0] = p[1] + [p[2]]
+    else:  # Una única declaración
+        p[0] = [p[1]]
 
 def p_statement(p):
     '''statement : variable_declaration
@@ -20,75 +23,113 @@ def p_statement(p):
                  | array_declaration
                  | hash_declaration
                  | input_statement'''
-    pass
-#Solicitud de datos por teclado
+    p[0] = p[1]  # Retorna el nodo correspondiente
+
+# Solicitud de datos por teclado
 def p_input_statement(p):
     '''input_statement : ID ASSIGN GETS'''
-    pass
+    p[0] = ('input', p[1])  # Representación: input(variable)
 
+# Declaración de variables
 def p_variable_declaration(p):
     '''variable_declaration : ID ASSIGN expression'''
-    pass
+    p[0] = ('assign', p[1], p[3])  # Representación: asignación
 
+# Impresión
 def p_print_statement(p):
     '''print_statement : PUTS LPAREN argument_list RPAREN
                        | PUTS LPAREN RPAREN
                        | PUTS STRING
                        | PUTS'''
-    pass
+    if len(p) == 5:  # `puts(argument_list)`
+        p[0] = ('print', p[3])
+    elif len(p) == 4:  # `puts()`
+        p[0] = ('print', None)
+    elif len(p) == 3:  # `puts "string"`
+        p[0] = ('print', p[2])
+    else:  # `puts`
+        p[0] = ('print', None)
 
 def p_argument_list(p):
     '''argument_list : argument_list COMMA expression
                      | expression'''
-    pass
+    if len(p) == 4:  # Lista con múltiples expresiones
+        p[0] = p[1] + [p[3]]
+    else:  # Una sola expresión
+        p[0] = [p[1]]
 
+# Estructuras de control
 def p_control_structure(p):
     '''control_structure : if_statement
                          | while_statement'''
-    pass
+    p[0] = p[1]
 
 def p_if_statement(p):
     '''if_statement : IF expression statement_list END'''
-    pass
+    p[0] = ('if', p[2], p[3])  # Representación: if(condición, cuerpo)
 
 def p_while_statement(p):
     '''while_statement : WHILE expression statement_list END'''
-    pass
+    p[0] = ('while', p[2], p[3])  # Representación: while(condición, cuerpo)
 
+# Expresiones
 def p_expression(p):
     '''expression : expression PLUS expression
                   | expression MINUS expression
                   | NUMBER
                   | STRING
                   | ID'''
-    pass
+    if len(p) == 4:  # Operación binaria
+        p[0] = (p[2], p[1], p[3])
+    else:  # Valor único (literal o variable)
+        p[0] = p[1]
 
-# Reglas para arrays
+# Declaración de arrays
 def p_array_declaration(p):
     '''array_declaration : ID ASSIGN LBRACKET array_elements RBRACKET
                          | ID ASSIGN LBRACKET RBRACKET'''
-    pass
+    if len(p) == 6:  # Array con elementos
+        p[0] = ('array', p[1], p[4])
+    else:  # Array vacío
+        p[0] = ('array', p[1], [])
 
 def p_array_elements(p):
     '''array_elements : array_elements COMMA expression
                       | expression'''
-    pass
+    if len(p) == 4:  # Múltiples elementos
+        p[0] = p[1] + [p[3]]
+    else:  # Un solo elemento
+        p[0] = [p[1]]
 
-# Reglas para hashes
+# Declaración de hashes
 def p_hash_declaration(p):
     '''hash_declaration : ID ASSIGN LBRACE hash_elements RBRACE
                         | ID ASSIGN LBRACE RBRACE'''
-    pass
+    if len(p) == 6:  # Hash con elementos
+        p[0] = ('hash', p[1], p[4])
+    else:  # Hash vacío
+        p[0] = ('hash', p[1], {})
 
 def p_hash_elements(p):
     '''hash_elements : hash_elements COMMA hash_pair
                      | hash_pair'''
-    pass
+    if len(p) == 4:  # Múltiples pares
+        p[0] = {**p[1], **p[3]}
+    else:  # Un solo par
+        p[0] = p[1]
 
 def p_hash_pair(p):
     '''hash_pair : expression COLON expression
                  | STRING COLON expression
                  | expression HASHROCKET expression'''
+    if p[2] == ':':  # Representación estilo Ruby moderno
+        p[0] = {p[1]: p[3]}
+    else:  # Representación estilo Ruby antiguo
+        p[0] = {p[1]: p[3]}
+
+# Producción vacía
+def p_empty(p):
+    '''empty :'''
     pass
 
 # Manejo de errores
@@ -102,12 +143,12 @@ def p_error(p):
         print(error_message)
         log_error(error_message)
 
-# --- Log de Errores ---
+# --- Registro de errores ---
 def log_error(message):
     """Guarda los errores en un archivo de log."""
     if not os.path.exists("logs"):
         os.makedirs("logs")
-    log_name = f'logs/sintactico-Fulcopin-{datetime.datetime.now().strftime("%d%m%Y-%Hh%M")}.txt'
+    log_name = f'logs/sintactico-{datetime.datetime.now().strftime("%d%m%Y-%Hh%M")}.txt'
     with open(log_name, 'a') as log_file:
         log_file.write(message + '\n')
 
@@ -117,11 +158,15 @@ parser = yacc.yacc()
 # --- Pruebas ---
 if __name__ == "__main__":
     try:
-        with open("algoritmo2.rb", "r") as f:
+        with open("algoritmo1.rb", "r") as f:
             data = f.read()
-            parser.parse(data)
-            print("Análisis sintáctico completado. Sin errores.")
+            result = parser.parse(data)
+            if result:
+                print("Análisis sintáctico completado. Resultado:")
+                print(result)
+            else:
+                print("Se encontraron errores durante el análisis.")
     except FileNotFoundError:
-        error_message = "Error: archivo de prueba 'algoritmo2.rb' no encontrado."
+        error_message = "Error: archivo de prueba 'algoritmo1.rb' no encontrado."
         print(error_message)
         log_error(error_message)

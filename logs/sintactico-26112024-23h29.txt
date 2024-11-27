@@ -1,0 +1,14 @@
+Error sintáctico en token '@nombre' línea 3
+Error sintáctico en token '>' línea 13
+Error sintáctico en token '(' línea 31
+Error sintáctico en token 'puts' línea 42
+Error sintáctico en token 'to_i' línea 43
+Error sintáctico en token 'mi_hash' línea 56
+Error sintáctico en token 'each' línea 58
+Error sintáctico en token '@nombre' línea 63
+Error sintáctico en token '>' línea 73
+Error sintáctico en token '(' línea 91
+Error sintáctico en token 'puts' línea 102
+Error sintáctico en token 'to_i' línea 103
+Error sintáctico en token 'mi_hash' línea 116
+Error sintáctico en token 'each' línea 118

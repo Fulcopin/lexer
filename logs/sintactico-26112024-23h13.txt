@@ -1,0 +1,4 @@
+Error sintáctico en token '*' línea 4
+Error sintáctico en token '1' línea 29
+Error sintáctico en token '>' línea 35
+Error sintáctico en token '*' línea 4

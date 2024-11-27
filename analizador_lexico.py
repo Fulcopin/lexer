@@ -1,18 +1,16 @@
 import ply.lex as lex
-import os
-import datetime
 
-# Lista de tokens
+# --- Lista de tokens ---
 tokens = (
     'ID', 'INSTANCE_VAR', 'CLASS_VAR', 'GLOBAL_VAR',  # Identificadores y variables
     'NUMBER', 'STRING',                               # Números y strings
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE',               # Operadores aritméticos
-    'AND', 'OR', 'NOT',                               # Operadores lógicos
     'EQ', 'NEQ', 'GT', 'LT', 'GTE', 'LTE',            # Comparadores
     'ASSIGN', 'PLUS_ASSIGN', 'MINUS_ASSIGN',          # Asignación
     'LPAREN', 'RPAREN', 'LBRACE', 'RBRACE',           # Delimitadores
-    'COMMA', 'DOT', 'COLON', 'SEMICOLON',             # Otros delimitadores
+    'COMMA', 'COLON',                                 # Otros delimitadores
     'LBRACKET', 'RBRACKET',                           # Más delimitadores
+    'HASHROCKET',                                     # Para hashes
 )
 
 # Palabras reservadas
@@ -22,14 +20,8 @@ reserved = {
     'while': 'WHILE',
     'do': 'DO',
     'end': 'END',
-    'def': 'DEF',
-    'class': 'CLASS',
-    'module': 'MODULE',
-    'true': 'TRUE',
-    'false': 'FALSE',
-    'nil': 'NIL',
     'puts': 'PUTS',
-    'gets' : 'GETS'  # Agregado para impresión
+    'gets': 'GETS',
 }
 
 # Agregar palabras reservadas a tokens
@@ -56,12 +48,8 @@ t_RBRACE = r'\}'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 t_COMMA = r','
-t_DOT = r'\.'
 t_COLON = r':'
-t_SEMICOLON = r';'
-t_AND = r'&&'
-t_OR = r'\|\|'
-t_NOT = r'!'
+t_HASHROCKET = r'=>'
 
 # Identificadores y palabras reservadas
 def t_ID(t):
