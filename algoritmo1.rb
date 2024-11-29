@@ -1,28 +1,29 @@
+# Algoritmo para contar números pares e impares en un rango
 
-x = 10
-y = 5
-resultado = x + y * 2 - (y / 3)
+def contar_pares_impares
+  print "Ingresa el número inicial del rango: "
+  inicio = gets.chomp.to_i
+  print "Ingresa el número final del rango: "
+  fin = gets.chomp.to_i
 
+  pares = 0
+  impares = 0
 
-if resultado > 10
-  puts "El resultado es mayor que 10"
-else
-  puts "El resultado es 10 o menor"
+  # Usamos un ciclo while para recorrer el rango
+  while inicio <= fin
+    if inicio % 2 == 0
+      pares += 1
+    else
+      impares += 1
+    end
+    inicio += 1
+  end
+
+  puts "En el rango dado hay #{pares} números pares y #{impares} números impares."
 end
 
-
-while y > 0 do
-  y -= 1
-  puts "y es ahora #{y}"
-end
-
-
-def saludo(nombre)
-  puts "Hola, #{nombre}!"
-end
-
-
-saludo("Estudiante")
+# Ejecutar la función
+contar_pares_impares
 
 
 numeros = [1, 2, 3, 4, 5]

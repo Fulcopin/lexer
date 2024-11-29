@@ -7,7 +7,7 @@ from analizador_semantico import analizar_semantico
 def cargar_archivo():
     filepath = filedialog.askopenfilename(filetypes=[("Ruby Files", "*.rb")])
     if filepath:
-        with open(filepath, "r") as f:
+         with open(filepath, "r") as f:
             data = f.read()
 
             # Llamar a los analizadores
