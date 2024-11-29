@@ -1,23 +1,23 @@
-# algoritmo1.rb
-x = 10
-y = 5
-resultado = x + y * 2 - (y / 3)
+# Algoritmo para sumar números ingresados por el usuario
 
-if resultado > 10
-  puts "El resultado es mayor que 10"
-else
-  puts "El resultado es 10 o menor"
+def sumar_numeros
+  suma = 0
+  continuar = true
+
+  while continuar
+    print "Ingresa un número (o 'fin' para terminar): "
+    input = gets.chomp
+
+    if input.downcase == 'fin'
+      continuar = false
+    else
+      numero = input.to_f
+      suma += numero
+    end
+  end
+
+  puts "La suma total de los números ingresados es: #{suma}"
 end
 
-def saludo(nombre)
-  puts "Hola, #{nombre}!"
-end
-
-saludo("Estudiante")
-
-begin
-  range = 1..5
-end
-
-
-
+# Ejecutar la función
+sumar_numeros
