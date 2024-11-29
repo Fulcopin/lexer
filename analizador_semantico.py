@@ -63,6 +63,26 @@ def log_error(message):
         f.write(message + "\n")
     print(message)
 
+def analizar_semantico(codigo_fuente):
+    """
+    Analiza semánticamente el código fuente y busca errores.
+    """
+    print("\n=== Análisis Semántico ===")
+
+    # Simulación de análisis línea por línea
+    lineas = codigo_fuente.splitlines()  # Separa el código por líneas
+    for numero_linea, linea in enumerate(lineas, start=1):
+        procesar_linea(linea, numero_linea)
+
+def procesar_linea(linea, numero_linea):
+    """
+    Procesa cada línea del código fuente para detectar variables no inicializadas,
+    operaciones incompatibles y otros errores semánticos.
+    """
+    # Eliminar espacios en blanco y comentarios
+    linea = linea.strip()
+    if not linea or linea.startswith("#"):  # Ignorar comentarios y líneas vacías
+        return
 # --- Ejemplo de Uso ---
 if __name__ == "__main__":
     # Ejemplo de inicialización de variables

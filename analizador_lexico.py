@@ -101,3 +101,11 @@ def t_error(t):
 
 # Construcción del lexer
 lexer = lex.lex()
+def analizar_lexicamente(codigo_fuente):
+    lexer.input(codigo_fuente)
+    print("=== Análisis Léxico ===")
+    while True:
+        token = lexer.token()
+        if not token:
+            break
+        print(f"Token: {token.type}, Valor: {token.value}, Línea: {token.lineno}")

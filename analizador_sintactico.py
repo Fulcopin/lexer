@@ -79,7 +79,7 @@ def p_expression(p):
                   | NUMBER
                   | STRING
                   | ID'''
-    if len(p) == 4:  # Operación binaria
+    if len(p) == 4: 
         p[0] = (p[2], p[1], p[3])
     else:  # Valor único (literal o variable)
         p[0] = p[1]
@@ -124,7 +124,7 @@ def p_hash_pair(p):
                  | expression HASHROCKET expression'''
     if p[2] == ':':  # Representación estilo Ruby moderno
         p[0] = {p[1]: p[3]}
-    else:  # Representación estilo Ruby antiguo
+    else: 
         p[0] = {p[1]: p[3]}
 
 # Producción vacía
@@ -155,18 +155,10 @@ def log_error(message):
 # Construcción del parser
 parser = yacc.yacc()
 
-# --- Pruebas ---
-if __name__ == "__main__":
-    try:
-        with open("algoritmo1.rb", "r") as f:
-            data = f.read()
-            result = parser.parse(data)
-            if result:
-                print("Análisis sintáctico completado. Resultado:")
-                print(result)
-            else:
-                print("Se encontraron errores durante el análisis.")
-    except FileNotFoundError:
-        error_message = "Error: archivo de prueba 'algoritmo1.rb' no encontrado."
-        print(error_message)
-        log_error(error_message)
+def analizar_sintacticamente(codigo_fuente):
+    print("\n=== Análisis Sintáctico ===")
+    result = parser.parse(codigo_fuente)
+    if result:
+        print("Análisis sintáctico completado correctamente.")
+    else:
+        print("Se encontraron errores sintácticos.")

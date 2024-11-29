@@ -1,0 +1,14 @@
+Error sintáctico en token 'time' línea 1
+Error sintáctico en token '(' línea 24
+Error sintáctico en token 'puts' línea 44
+Error sintáctico en token 'end' línea 60
+Error sintáctico en token '"Choose an option: "' línea 109
+Error sintáctico en token 'print' línea 115
+Error sintáctico en token '@user_manager' línea 117
+Error sintáctico en token '@user_manager' línea 127
+Error sintáctico en token 'to_i' línea 133
+Error sintáctico en token 'print' línea 136
+Error sintáctico en token 'name' línea 138
+Error sintáctico en token '@user_manager' línea 140
+Error sintáctico en token 'to_i' línea 146
+Error sintáctico en token 'cli' línea 153
