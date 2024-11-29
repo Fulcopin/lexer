@@ -41,13 +41,13 @@ class UserManager
   def search_user(query)
     result = @users.select { |user| user.name.include?(query) || user.email.include?(query) }
     if result.empty?
-      puts "No users found matching '#{query}'."
+      
     else
       result.each { |user| puts user }
     end
   end
 
-  # Actualizar un usuario
+  # Actualizar un usuariofddd
   def update_user(index, name: nil, email: nil)
     if index < 0 || index >= @users.length
       puts "Invalid user index."
